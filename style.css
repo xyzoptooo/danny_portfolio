@@ -17,6 +17,16 @@
     font-family: 'Poppins', sans-serif;
 }
 
+/* Smooth Page Load Animation */
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
 body {
     position: relative;
     width: 100%;
@@ -25,9 +35,26 @@ body {
     flex-direction: column;
     align-items: center;
     padding: 20px 0;
-    background-color: #0a192f;
+    background: linear-gradient(120deg, #4acfee, #0a192f);
+    background-size: 200% 200%;
+    animation: 
+        fadeIn 1s ease-in-out forwards,
+        gradientShift 10s ease infinite;
     color: white;
     overflow-x: hidden;
+    opacity: 0;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
 }
 
 .back-vid {
@@ -310,20 +337,14 @@ nav a.active {
     display: flex;
     gap: 30px;
     width: max-content;
-    animation: scrollEducation 30s linear infinite;
+    animation: scrollHorizontal 20s linear infinite;
+    will-change: transform;
+    padding: 20px 0;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.education-scroller:hover {
+.education-container:hover .education-scroller {
     animation-play-state: paused;
-}
-
-@keyframes scrollEducation {
-    0% {
-        transform: translateX(0);
-    }
-    100% {
-        transform: translateX(calc(-50% - 15px));
-    }
 }
 
 .education-card {
@@ -333,12 +354,33 @@ nav a.active {
     border-radius: 15px;
     transition: all 0.3s ease;
     text-align: center;
+    position: relative;
 }
 
 .education-card:hover {
     transform: translateY(-10px);
     box-shadow: 0 10px 30px rgba(0, 255, 255, 0.3);
 }
+
+.education-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.education-link:hover ~ .education-card-content {
+    color: var(--primary);
+}
+
+.education-card-content {
+    position: relative;
+    z-index: 2;
+    pointer-events: none;
+}
+
 
 .education-card i {
     font-size: 3rem;
@@ -434,8 +476,9 @@ nav a.active {
     display: flex;
     gap: 30px;
     width: max-content;
-    animation: scrollHorizontal 25s linear infinite;
+    animation: scrollHorizontal 40s linear infinite;
     padding: 20px 0;
+    will-change: transform;
 }
 
 .projects-container:hover .projects-scroller {
@@ -473,6 +516,57 @@ nav a.active {
 .project-card p {
     color: rgba(255, 255, 255, 0.8);
     margin-bottom: 20px;
+}
+
+/* Scroll Animations */
+@keyframes slideInLeft {
+    0% {
+        transform: translateX(-50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInRight {
+    0% {
+        transform: translateX(50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+@keyframes slideInUp {
+    0% {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.slide-in {
+    opacity: 0;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.slide-in-left {
+    animation: slideInLeft 0.8s ease-out forwards;
+}
+
+.slide-in-right {
+    animation: slideInRight 0.8s ease-out forwards;
+}
+
+.slide-in-up {
+    animation: slideInUp 0.8s ease-out forwards;
 }
 
 /* New CSS-only animations */
@@ -766,61 +860,55 @@ nav a.active {
     }
 }
 
-/* Horizontal Scrolling Container Styles */
-.scrolling-container {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    padding: 20px 0;
-}
-
-.scrolling-wrapper {
-    display: flex;
-    gap: 30px;
-    width: max-content;
-    animation: scrollHorizontal 30s linear infinite;
-    padding: 20px 0;
-}
-
-/* Pause animation on hover */
-.scrolling-container:hover .scrolling-wrapper {
-    animation-play-state: paused;
-}
-
 /* Keyframes for horizontal scrolling */
 @keyframes scrollHorizontal {
     0% {
         transform: translateX(0);
     }
     100% {
-        transform: translateX(calc(-50% - 15px));
+        transform: translateX(calc(-50% - 15px)); /* Adjusted for gap */
     }
 }
 
-/* Education Section Specific Styles */
-.education .scrolling-wrapper {
-    animation-duration: 40s; /* Slower scroll for education */
+/* Education Scroller Styles */
+.education-scroller {
+    display: flex;
+    gap: 30px;
+    width: max-content;
+    animation: scrollHorizontal 20s linear infinite;
+    will-change: transform;
+    padding: 20px 0;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Projects Section Specific Styles */
-.projects .scrolling-wrapper {
-    animation-duration: 25s; /* Faster scroll for projects */
-}
-
-/* Card Styles for Scrolling Sections */
-.scrolling-card {
-    flex: 0 0 calc(33.333% - 20px);
+/* Duplicate MKU card for seamless looping */
+.education-scroller::before,
+.education-scroller::after {
+    content: '';
+    display: block;
     min-width: 300px;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 30px;
-    border-radius: 15px;
-    transition: all 0.3s ease;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(90deg, 
+        rgba(10, 25, 47, 0) 0%, 
+        rgba(10, 25, 47, 0.8) 50%, 
+        rgba(10, 25, 47, 0) 100%);
 }
 
-.scrolling-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 255, 255, 0.3);
+.education-container:hover .education-scroller {
+    animation-play-state: paused;
+}
+
+/* Projects Scroller Styles */
+.projects-scroller {
+    display: flex;
+    gap: 30px;
+    width: max-content;
+    animation: scrollHorizontal 40s linear infinite;
+    will-change: transform;
+    padding: 20px 0;
+}
+
+.projects-container:hover .projects-scroller {
+    animation-play-state: paused;
 }
 
 /* Responsive Adjustments */
