@@ -100,6 +100,20 @@ nav {
     align-items: center;
     padding: 30px 40px;
     width: 100%;
+    animation: slideInDown 0.8s ease-out forwards;
+    transform: translateY(-100%);
+    opacity: 0;
+}
+
+@keyframes slideInDown {
+    0% {
+        transform: translateY(-100%);
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 nav h1 {
@@ -154,6 +168,9 @@ nav a.active {
     background: linear-gradient(to right, #4acfee, #ffffff);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    animation: slideInLeft 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateX(-50px);
 }
 
 .hero h2 {
@@ -258,6 +275,9 @@ nav a.active {
     box-shadow: 0 0 20px rgba(0, 255, 255, 0.2);
     margin: 40px auto;
     padding: 40px 0;
+    animation: slideInRight 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateX(50px);
 }
 
 .about-content {
@@ -324,6 +344,9 @@ nav a.active {
     text-align: center;
     margin-bottom: 50px;
     color: cyan;
+    animation: slideInLeft 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateX(-50px);
 }
 
 .education-container {
@@ -412,6 +435,9 @@ nav a.active {
     text-align: center;
     margin-bottom: 50px;
     color: cyan;
+    animation: slideInRight 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateX(50px);
 }
 
 .services-grid {
@@ -463,6 +489,9 @@ nav a.active {
     text-align: center;
     margin-bottom: 50px;
     color: cyan;
+    animation: slideInLeft 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateX(-50px);
 }
 
 .projects-container {
@@ -643,6 +672,9 @@ nav a.active {
     text-align: center;
     margin-bottom: 50px;
     color: cyan;
+    animation: slideInRight 0.8s ease-out forwards;
+    opacity: 0;
+    transform: translateX(50px);
 }
 
 .contact-content {
